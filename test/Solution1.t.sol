@@ -33,6 +33,7 @@ contract Solution1Test is Test {
         // the first function from the helperContract
         bytes4 selector = bytes4(keccak256("returnTrue()"));
         // @param the abi encoded data... hint! Use chisel to figure out what to use here...
+        // the second function from the helperContract with correct params args
         bytes memory inputData = abi.encodeWithSelector(
             bytes4(keccak256("returnTrueWithGoodValues(uint256,address)")),
             9,
