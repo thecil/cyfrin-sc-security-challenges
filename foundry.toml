@@ -17,6 +17,9 @@ remappings = [
     "openzeppelin-contracts/=lib/openzeppelin-contracts/",
 ]
 
+[rpc_endpoints]
+sepolia = "${SEPOLIA_RPC_URL}"
+
 [fuzz]
 seed="0x1"
 
