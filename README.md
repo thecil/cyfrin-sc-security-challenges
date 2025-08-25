@@ -4,7 +4,7 @@
 <br/>
 <p align="center">
 <a href="https://updraft.cyfrin.io/" target="_blank">
-<img src="./images/course-hero.jpg" width="500" alt="Smart Contract Security, Auditing, Assembly, and DeFi Ultimate Course">
+<img src="https://raw.githubusercontent.com/Cyfrin/security-and-auditing-full-course-s23/main/images/course-hero.jpg" width="500" alt="Smart Contract Security, Auditing, Assembly, and DeFi Ultimate Course">
 </a>
 </p>
 <br/>
@@ -22,3 +22,5 @@ A collection of exercises in order to attempt to complete all the challenges fro
 [Section 1](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-1-nft)
 
 [Section 2](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-2-nft)
+
+[Section 3](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-3-nft)
