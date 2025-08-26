@@ -11,8 +11,8 @@
 
 A collection of exercises in order to attempt to complete all the challenges from the course.
 
+Please keep in mind, I did not focus on making this contracts/unit test secure or at best practices, but rather to provide a very simple example on how to solve all the challenges. 
 #
-
 
 
 ### Links to challenges 
@@ -24,3 +24,5 @@ A collection of exercises in order to attempt to complete all the challenges fro
 [Section 2](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-2-nft)
 
 [Section 3](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-3-nft)
+
+[Section 4](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-4-nft)
