@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {ERC721Holder} from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {S4} from "../challenges/S4.sol";
+import { ERC721Holder } from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import { S4 } from "../challenges/S4.sol";
 
 contract Solution4 is ERC721Holder {
     error Solution4__SolveFailed();
     error Solution4__IncorrectOwnedTokenId();
+
     S4 public immutable i_challenge;
     IERC721 public immutable i_nft;
 
@@ -37,16 +38,6 @@ contract Solution4 is ERC721Holder {
 
     function _calcGuessRng() private view returns (uint256 guess_rng) {
         // slither-disable-next-line weak-prng
-        guess_rng =
-            uint256(
-                keccak256(
-                    abi.encodePacked(
-                        address(this),
-                        block.prevrandao,
-                        block.timestamp
-                    )
-                )
-            ) %
-            1_000_000;
+        guess_rng = uint256(keccak256(abi.encodePacked(address(this), block.prevrandao, block.timestamp))) % 1_000_000;
     }
 }

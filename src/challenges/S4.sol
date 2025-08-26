@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {Challenge} from "lib/ctf/src/protocol/Challenge.sol";
+import { Challenge } from "lib/ctf/src/protocol/Challenge.sol";
 
 contract S4 is Challenge {
     error S4__BadReturn();
@@ -10,7 +10,7 @@ contract S4 is Challenge {
 
     uint256 myVal = 0;
 
-    constructor(address registry) Challenge(registry) {}
+    constructor(address registry) Challenge(registry) { }
 
     /*
      * CALL THIS FUNCTION!
@@ -18,13 +18,8 @@ contract S4 is Challenge {
      * @param guess - your guess to solve the challenge.
      * @param yourTwitterHandle - Your twitter handle. Can be a blank string.
      */
-    function solveChallenge(
-        uint256 guess,
-        string memory yourTwitterHandle
-    ) external {
-        (bool success, bytes memory returnData) = msg.sender.staticcall(
-            abi.encodeWithSignature("owner()")
-        );
+    function solveChallenge(uint256 guess, string memory yourTwitterHandle) external {
+        (bool success, bytes memory returnData) = msg.sender.staticcall(abi.encodeWithSignature("owner()"));
         address ownerAddress;
         assembly {
             ownerAddress := mload(add(returnData, 32))
@@ -34,22 +29,15 @@ contract S4 is Challenge {
         }
         if (myVal == 1) {
             // slither-disable-next-line weak-prng
-            uint256 rng = uint256(
-                keccak256(
-                    abi.encodePacked(
-                        msg.sender,
-                        block.prevrandao,
-                        block.timestamp
-                    )
-                )
-            ) % 1_000_000;
+            uint256 rng =
+                uint256(keccak256(abi.encodePacked(msg.sender, block.prevrandao, block.timestamp))) % 1_000_000;
             if (rng != guess) {
                 revert S4__BadGuess();
             }
             _updateAndRewardSolver(yourTwitterHandle);
         } else {
             myVal = 1;
-            (bool succ, ) = msg.sender.call(abi.encodeWithSignature("go()"));
+            (bool succ,) = msg.sender.call(abi.encodeWithSignature("go()"));
             if (!succ) {
                 revert S4__BadReturn();
             }

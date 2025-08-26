@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {Challenge} from "lib/ctf/src/protocol/Challenge.sol";
+import { Challenge } from "lib/ctf/src/protocol/Challenge.sol";
 
 contract S3 is Challenge {
     error S3__WrongValue();
@@ -21,10 +21,7 @@ contract S3 is Challenge {
      * @param valueAtStorageLocationSevenSevenSeven - The value at storage location 777.
      * @param yourTwitterHandle - Your twitter handle. Can be a blank string.
      */
-    function solveChallenge(
-        uint256 valueAtStorageLocationSevenSevenSeven,
-        string memory yourTwitterHandle
-    ) external {
+    function solveChallenge(uint256 valueAtStorageLocationSevenSevenSeven, string memory yourTwitterHandle) external {
         uint256 value;
         assembly {
             value := sload(STORAGE_LOCATION)
@@ -33,11 +30,8 @@ contract S3 is Challenge {
             revert S3__WrongValue();
         }
         // slither-disable-next-line weak-prng
-        uint256 newValue = uint256(
-            keccak256(
-                abi.encodePacked(msg.sender, block.prevrandao, block.timestamp)
-            )
-        ) % 1_000_000;
+        uint256 newValue =
+            uint256(keccak256(abi.encodePacked(msg.sender, block.prevrandao, block.timestamp))) % 1_000_000;
         assembly {
             sstore(STORAGE_LOCATION, newValue)
         }

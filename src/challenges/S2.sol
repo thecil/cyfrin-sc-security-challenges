@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {Challenge} from "lib/ctf/src/protocol/Challenge.sol";
+import { Challenge } from "lib/ctf/src/protocol/Challenge.sol";
 
 contract S2 is Challenge {
     error S2__WrongValue();
 
-    constructor(address registry) Challenge(registry) {}
+    constructor(address registry) Challenge(registry) { }
 
     /*
      * CALL THIS FUNCTION!

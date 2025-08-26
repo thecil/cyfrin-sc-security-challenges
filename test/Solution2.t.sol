@@ -1,17 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {Test, console} from "forge-std/Test.sol";
-import {S2} from "../src/challenges/S2.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import { Test, console } from "forge-std/Test.sol";
+import { S2 } from "../src/challenges/S2.sol";
+import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract Solution2Test is Test {
     S2 challenge;
     IERC721 nft;
-    address constant sepoliaRegistryAddress =
-        0x31801c3e09708549c1b2c9E1CFbF001399a1B9fa;
-    address constant sepoliaChallengeAddress =
-        0x34d130B174F4a30A846FED7C02FCF53A19a4c2B6;
+    address constant sepoliaRegistryAddress = 0x31801c3e09708549c1b2c9E1CFbF001399a1B9fa;
+    address constant sepoliaChallengeAddress = 0x34d130B174F4a30A846FED7C02FCF53A19a4c2B6;
     address USER = makeAddr("USER");
 
     function setUp() public {
@@ -23,9 +21,13 @@ contract Solution2Test is Test {
     }
 
     function test_canReadChallengeContract() public view {
-        string memory result = challenge.attribute();
+        string memory result = challenge.description();
         console.log("Result:", result);
-        assertEq(result, "Good at function calling", "Should be attribute:Good at function calling");
+        assertEq(
+            result,
+            "Section 2: What is a smart contract security review?",
+            "Should be description: Section 2: What is a smart contract security review?"
+        );
     }
 
     function test_solveChallenge() public {

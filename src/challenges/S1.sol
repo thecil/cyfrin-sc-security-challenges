@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {Challenge} from "lib/ctf/src/protocol/Challenge.sol";
+import { Challenge } from "lib/ctf/src/protocol/Challenge.sol";
 
 contract S1 is Challenge {
     error S1__WrongSelector();
@@ -24,21 +24,13 @@ contract S1 is Challenge {
      * @param the abi encoded data... hint! Use chisel to figure out what to use here...
      * @param yourTwitterHandle - Your twitter handle. Can be a blank string.
      */
-    function solveChallenge(
-        bytes4 selectorOne,
-        bytes memory inputData,
-        string memory yourTwitterHandle
-    ) external {
-        (bool successOne, bytes memory responseDataOne) = i_helperContract.call(
-            abi.encodeWithSelector(selectorOne)
-        );
+    function solveChallenge(bytes4 selectorOne, bytes memory inputData, string memory yourTwitterHandle) external {
+        (bool successOne, bytes memory responseDataOne) = i_helperContract.call(abi.encodeWithSelector(selectorOne));
         if (!successOne || uint256(bytes32((responseDataOne))) != 1) {
             revert S1__WrongSelector();
         }
 
-        (bool successTwo, bytes memory responseDataTwo) = i_helperContract.call(
-            inputData
-        );
+        (bool successTwo, bytes memory responseDataTwo) = i_helperContract.call(inputData);
         if (!successTwo || uint256(bytes32((responseDataTwo))) != 1) {
             revert S1__WrongData();
         }

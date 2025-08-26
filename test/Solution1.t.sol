@@ -1,17 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {Test, console} from "forge-std/Test.sol";
-import {S1} from "../src/challenges/S1.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import { Test, console } from "forge-std/Test.sol";
+import { S1 } from "../src/challenges/S1.sol";
+import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract Solution1Test is Test {
     S1 challenge;
     IERC721 nft;
-    address constant sepoliaRegistryAddress =
-        0x31801c3e09708549c1b2c9E1CFbF001399a1B9fa;
-    address constant sepoliaChallengeAddress =
-        0x76D2403b80591d5F6AF2b468BC14205fa5452AC0;
+    address constant sepoliaRegistryAddress = 0x31801c3e09708549c1b2c9E1CFbF001399a1B9fa;
+    address constant sepoliaChallengeAddress = 0x76D2403b80591d5F6AF2b468BC14205fa5452AC0;
     address USER = makeAddr("USER");
 
     function setUp() public {
@@ -23,9 +21,9 @@ contract Solution1Test is Test {
     }
 
     function test_canReadChallengeContract() public view {
-        string memory result = challenge.attribute();
+        string memory result = challenge.description();
         console.log("Result:", result);
-        assertEq(result, "Fresh", "Should be attribute:Fresh");
+        assertEq(result, "Section 1: Refresher", "Should be description: Section 1: Refresher");
     }
 
     function test_solveChallenge() public {
@@ -35,9 +33,7 @@ contract Solution1Test is Test {
         // @param the abi encoded data... hint! Use chisel to figure out what to use here...
         // the second function from the helperContract with correct params args
         bytes memory inputData = abi.encodeWithSelector(
-            bytes4(keccak256("returnTrueWithGoodValues(uint256,address)")),
-            9,
-            challenge.getHelperContract()
+            bytes4(keccak256("returnTrueWithGoodValues(uint256,address)")), 9, challenge.getHelperContract()
         );
         console.logBytes4(selector);
         console.logBytes(inputData);
