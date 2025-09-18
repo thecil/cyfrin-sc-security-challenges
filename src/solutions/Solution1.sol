@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {ERC721Holder} from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
-import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {S1} from "../challenges/S1.sol";
+import { ERC721Holder } from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
+import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import { S1 } from "../challenges/S1.sol";
 
 contract Solution1 is ERC721Holder {
     error Solution1__SolveFailed();
@@ -28,9 +28,7 @@ contract Solution1 is ERC721Holder {
         // @param the abi encoded data... hint! Use chisel to figure out what to use here...
         // the second function from the helperContract with correct params args
         bytes memory inputData = abi.encodeWithSelector(
-            bytes4(keccak256("returnTrueWithGoodValues(uint256,address)")),
-            9,
-            i_challenge.getHelperContract()
+            bytes4(keccak256("returnTrueWithGoodValues(uint256,address)")), 9, i_challenge.getHelperContract()
         );
         i_challenge.solveChallenge(selector, inputData, "thecil_eth");
     }
