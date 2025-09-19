@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {Challenge} from "lib/ctf/src/protocol/Challenge.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {S6Token} from "./S6Token.sol";
-import {S6Market} from "./S6Market.sol";
+import { Challenge } from "lib/ctf/src/protocol/Challenge.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { S6Token } from "./S6Token.sol";
+import { S6Market } from "./S6Market.sol";
 
 interface WhoAreYou {
     function owner() external view returns (address);
