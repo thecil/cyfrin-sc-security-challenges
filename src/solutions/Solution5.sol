@@ -3,9 +3,9 @@ pragma solidity 0.8.20;
 
 import { ERC721Holder } from "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import { S5 } from "../challenges/S5.sol";
-import { S5Pool } from "../../src/challenges/S5Pool.sol";
-import { S5Token } from "../../src/challenges/S5Token.sol";
+import { S5 } from "../challenges/S5/S5.sol";
+import { S5Pool } from "../../src/challenges/S5/S5Pool.sol";
+import { S5Token } from "../../src/challenges/S5/S5Token.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Solution5 is ERC721Holder {

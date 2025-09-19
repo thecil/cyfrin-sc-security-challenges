@@ -3,7 +3,7 @@ pragma solidity ^0.8.18;
 
 import { Test, console } from "forge-std/Test.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { S5 } from "../src/challenges/S5.sol";
+import { S5 } from "../src/challenges/S5/S5.sol";
 import { IERC721 } from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import { Solution5 } from "../src/solutions/Solution5.sol";
 
