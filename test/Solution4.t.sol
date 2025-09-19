@@ -33,12 +33,7 @@ contract Solution4Test is Test {
         assertEq(result, "Section 4: Puppy Raffle Audit", "Should be description: Section 4: Puppy Raffle Audit");
     }
 
-    function test_solveChallenge() public {
-        vm.startPrank(USER);
-        // Start recording
-        vm.recordLogs();
-        solution.solve();
-        vm.stopPrank();
+    function _getEventTransfer() internal returns (address from, address to, uint256 tokenId) {
         // Get recorded logs
         Vm.Log[] memory logEntries = vm.getRecordedLogs();
         // Get the first log entry which should be the event 'Transfer'
@@ -47,19 +42,25 @@ contract Solution4Test is Test {
         bytes32 eventSignature = keccak256("Transfer(address,address,uint256)");
 
         assertEq(logEntry.topics[0], eventSignature, "The event signature hash should match Transfer Event");
-
         // Decode indexed params from topics
-        address from = address(uint160(uint256(logEntry.topics[1])));
-        address to = address(uint160(uint256(logEntry.topics[2])));
-        uint256 tokenId = uint256(logEntry.topics[3]);
+        from = address(uint160(uint256(logEntry.topics[1])));
+        to = address(uint160(uint256(logEntry.topics[2])));
+        tokenId = uint256(logEntry.topics[3]);
 
         console.log("Transfer Event Decoded: from: %s, to: %s, tokenId: %s", from, to, tokenId);
+    }
 
+    function test_solveChallenge() public {
+        vm.startPrank(USER);
+        // Start recording
+        vm.recordLogs();
+        solution.solve();
+        vm.stopPrank();
         console.log("NFT", nft.balanceOf(address(solution)));
         assertEq(nft.balanceOf(address(solution)), 1);
-
         // transfer nft to USER, to ensure we can rescue the NFT from the contract
         vm.startPrank(USER);
+        (,, uint256 tokenId) = _getEventTransfer();
         solution.withdrawNft(tokenId);
         assertEq(nft.balanceOf(address(solution)), 0, "Contract should not have any NFT at this point");
         assertEq(nft.balanceOf(USER), 1, "USER should have 1 NFT at this point");
