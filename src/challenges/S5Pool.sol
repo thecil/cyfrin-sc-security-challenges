@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 /*
  * @title S5Pool
@@ -12,10 +12,13 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
  *
  * @notice a stablecoin focused DEX who only supports assets that are 1:1 with each other, for example DAI/USDC/USDT
  * Stablecoins are assets whose value is non-volatile in nature.
- * On this exchange, we allow any number of token A to be swapped with token B or token C because we assume they have the same value.
- * @notice unlike uniswap, this is a tripool, with 3 tokens instead of 2. This works because we assume all 3 tokens have the same value.
+* On this exchange, we allow any number of token A to be swapped with token B or token C because we assume they have the
+same value.
+* @notice unlike uniswap, this is a tripool, with 3 tokens instead of 2. This works because we assume all 3 tokens have
+the same value.
  *
- * Invariant: Since this is a stablecoin dex, you should always be able to get the same or more tokens out than you put in.
+* Invariant: Since this is a stablecoin dex, you should always be able to get the same or more tokens out than you put
+in.
  * For example:
  *   - One should be able to deposit 100 tokenA, 100 tokenB, and 100 tokenC for a total of 300 tokens
  *   - On redemption, they should get at least 300 tokens back, never less
@@ -43,12 +46,7 @@ contract S5Pool is ERC20, Ownable {
     //////////////////////////////////////////////////////////////*/
     event Deposited(address indexed account, uint256 amount);
     event Withdrawn(address indexed account, uint256 amount);
-    event Swapped(
-        address indexed account,
-        IERC20 indexed tokenFrom,
-        IERC20 indexed tokenTo,
-        uint256 amount
-    );
+    event Swapped(address indexed account, IERC20 indexed tokenFrom, IERC20 indexed tokenTo, uint256 amount);
 
     /*//////////////////////////////////////////////////////////////
                                MODIFIERS
@@ -77,11 +75,7 @@ contract S5Pool is ERC20, Ownable {
     /*//////////////////////////////////////////////////////////////
                                FUNCTIONS
     //////////////////////////////////////////////////////////////*/
-    constructor(
-        IERC20 tokenA,
-        IERC20 tokenB,
-        IERC20 tokenC
-    ) ERC20("S5Pool Shares", "S5PS") Ownable(msg.sender) {
+    constructor(IERC20 tokenA, IERC20 tokenB, IERC20 tokenC) ERC20("S5Pool Shares", "S5PS") Ownable(msg.sender) {
         i_tokenA = tokenA;
         i_tokenB = tokenB;
         i_tokenC = tokenC;
@@ -90,10 +84,7 @@ contract S5Pool is ERC20, Ownable {
     /*
      * @notice deposit tokenA and tokenB into the pool. You must always deposit the same amount of each
      */
-    function deposit(
-        uint256 amount,
-        uint64 deadline
-    ) external revertIfDeadlinePassed(deadline) revertIfZero(amount) {
+    function deposit(uint256 amount, uint64 deadline) external revertIfDeadlinePassed(deadline) revertIfZero(amount) {
         _mint(msg.sender, amount);
         emit Deposited(msg.sender, amount);
         i_tokenA.safeTransferFrom(msg.sender, address(this), amount);
@@ -107,12 +98,9 @@ contract S5Pool is ERC20, Ownable {
      */
     function redeem(uint64 deadline) external revertIfDeadlinePassed(deadline) {
         uint256 amount = balanceOf(msg.sender);
-        uint256 tokenAToWithdraw = (amount *
-            i_tokenA.balanceOf(address(this))) / totalSupply();
-        uint256 tokenBToWithdraw = (amount *
-            i_tokenB.balanceOf(address(this))) / totalSupply();
-        uint256 tokenCToWithdraw = (amount *
-            i_tokenC.balanceOf(address(this))) / totalSupply();
+        uint256 tokenAToWithdraw = (amount * i_tokenA.balanceOf(address(this))) / totalSupply();
+        uint256 tokenBToWithdraw = (amount * i_tokenB.balanceOf(address(this))) / totalSupply();
+        uint256 tokenCToWithdraw = (amount * i_tokenC.balanceOf(address(this))) / totalSupply();
 
         emit Withdrawn(msg.sender, amount);
         _burn(msg.sender, amount);
@@ -130,7 +118,11 @@ contract S5Pool is ERC20, Ownable {
         IERC20 tokenFrom,
         IERC20 tokenTo,
         uint256 amount
-    ) external revertIfUnknownToken(tokenFrom) revertIfUnknownToken(tokenTo) {
+    )
+        external
+        revertIfUnknownToken(tokenFrom)
+        revertIfUnknownToken(tokenTo)
+    {
         // Checks
         if (tokenTo.balanceOf(address(this)) < amount) {
             revert S5Pool__NotEnoughBalance(tokenTo, amount);
@@ -153,9 +145,7 @@ contract S5Pool is ERC20, Ownable {
     /*
      * @dev users can pick any of the stablecoins to take their fee in
      */
-    function collectOwnerFees(
-        IERC20 token
-    ) external revertIfUnknownToken(token) {
+    function collectOwnerFees(IERC20 token) external revertIfUnknownToken(token) {
         uint256 amount = s_totalOwnerFees;
         s_totalOwnerFees = 0;
         i_tokenA.safeTransfer(owner(), amount);

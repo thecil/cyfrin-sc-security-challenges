@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import {Challenge} from "lib/ctf/src/protocol/Challenge.sol";
-import {S5Pool} from "./S5Pool.sol";
-import {S5Token} from "./S5Token.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { Challenge } from "lib/ctf/src/protocol/Challenge.sol";
+import { S5Pool } from "./S5Pool.sol";
+import { S5Token } from "./S5Token.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract S5 is Challenge {
     using SafeERC20 for S5Token;
@@ -59,7 +59,7 @@ contract S5 is Challenge {
 
     /*
      * @dev Every time this challenge is solved, we reset the challenge by creating a new pool and tokens.
-     * @dev I was going to self destruct after every new challenge... but that opcode might be unsupported in the future
+    * @dev I was going to self destruct after every new challenge... but that opcode might be unsupported in the future
      * @dev then i was going to do proxies but didn't want to make it too hard...
      * @dev so... we are just laying carnage to arbitrum deploying a ton of contracts
      */
