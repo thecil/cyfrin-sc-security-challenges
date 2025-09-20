@@ -28,3 +28,9 @@ Please keep in mind, I did not focus on making this contracts/unit test secure o
 [Section 4](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-4-nft)
 
 [Section 5](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-5-nft)
+
+[Section 6](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-6-nft)
+
+[Section 7](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-7-nft)
+
+[Section 8](https://github.com/Cyfrin/security-and-auditing-full-course-s23?tab=readme-ov-file#section-8-nft)
